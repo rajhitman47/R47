@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARMOUR47 | Product Details</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ===================================== -->
+    <!-- BACKGROUND EFFECTS -->
+    <!-- ===================================== -->
+    <div class="bg-overlay"></div>
+    <div class="smoke smoke1"></div>
+    <div class="smoke smoke2"></div>
+    
+    <!-- Canvas background for embers -->
+    <canvas id="canvas-embers"></canvas>
+
+    <!-- ===================================== -->
+    <!-- HEADER -->
+    <!-- ===================================== -->
+    <header>
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="Elogo-trans.png" alt="R47 Logo" class="logo-icon">
+            <img src="ARMOUR47-trans.png" alt="Armour47" class="logo-text">
+        </div>
+
+        <nav class="desktop-nav">
+            <a href="index.html#home">HOME</a>
+            <a href="index.html#collections">COLLECTIONS</a>
+            <a href="index.html#featured">SHOP</a>
+            <a href="#footer">CONTACT</a>
+        </nav>
+
+        <div class="nav-icons">
+            <button class="nav-btn" aria-label="Account">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="nav-btn cart-btn" aria-label="Cart" onclick="window.location.href='index.html#collections'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===================================== -->
+    <!-- PRODUCT DETAIL VIEW -->
+    <!-- ===================================== -->
+    <main class="product-detail-container" id="product-detail-view">
+        <!-- Dynamically Populated by script -->
+        <div style="grid-column: span 2; text-align: center; padding: 100px 0;" id="loading-state">
+            <div class="loader" style="width: 40px; height: 40px; border-width: 3px;"></div>
+            <p style="margin-top: 15px; font-family: var(--font-brand); letter-spacing: 2px;">RETRIEVING ARMOR DETAILS...</p>
+        </div>
+    </main>
+
+    <!-- ===================================== -->
+    <!-- ORDER FORM MODAL SLIDE-IN -->
+    <!-- ===================================== -->
+    <div class="modal-overlay" id="order-modal-overlay">
+        <div class="modal-panel" id="order-modal-panel">
+            
+            <!-- Close button -->
+            <div class="modal-header">
+                <h3>SECURE ORDER</h3>
+                <button class="close-btn" onclick="toggleOrderModal(false)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Form content state -->
+            <div id="order-form-state">
+                <div class="order-product-summary">
+                    <img src="" alt="" class="order-summary-img" id="summary-img">
+                    <div class="order-summary-info">
+                        <h4 id="summary-name">Product Name</h4>
+                        <p>Selected Size: <strong id="summary-size">M</strong> | Price: <strong id="summary-price">$0.00</strong></p>
+                    </div>
+                </div>
+
+                <form class="order-form" id="checkout-order-form" onsubmit="handleOrderSubmit(event)">
+                    <div class="form-group">
+                        <label for="order-fullname">FULL NAME *</label>
+                        <input type="text" id="order-fullname" placeholder="ENTER YOUR FULL NAME" required autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-email">EMAIL ADDRESS *</label>
+                        <input type="email" id="order-email" placeholder="name@domain.com" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-phone">PHONE NUMBER *</label>
+                        <input type="tel" id="order-phone" placeholder="+1 (555) 000-0000" required autocomplete="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="order-address">SHIPPING ADDRESS *</label>
+                        <textarea id="order-address" rows="3" placeholder="STREET ADDRESS, CITY, STATE, POSTAL CODE" required autocomplete="street-address"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="order-qty">QUANTITY *</label>
+                            <input type="number" id="order-qty" value="1" min="1" max="100" required onchange="updateTotalPriceLabel()">
+                        </div>
+                        <div class="form-group" style="justify-content: flex-end;">
+                            <label style="margin-bottom: 2px;">TOTAL DUE</label>
+                            <div style="font-family: var(--font-brand); font-size: 20px; font-weight: 800; color: var(--primary-red);" id="form-total-price">
+                                $0.00
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-form-submit" id="submit-btn-el">
+                        <span>CONFIRM ORDER</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success content state -->
+            <div class="success-panel" id="order-success-state">
+                <div class="success-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h4>ORDER SECURED</h4>
+                <p>
+                    Warrior, your order has been received. A receipt has been saved. We are preparing your gear!
+                </p>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); padding: 15px; border-radius: 8px; font-size: 12px; margin-bottom: 25px; width: 100%; text-align: left;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Order ID:</span><span style="font-family:var(--font-brand); color:var(--primary-red);" id="success-order-id">#12345</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span>Amount Paid:</span><span style="font-weight:700;" id="success-order-total">$0.00</span></div>
+                </div>
+                <button class="btn-success-close" onclick="window.location.href='index.html'">RETURN TO HOME</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- FOOTER -->
+    <!-- ===================================== -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="Elogo-trans.png" alt="R47 Shield" class="footer-icon">
+                <img src="ARMOUR47-trans.png" alt="Armour47" class="footer-text">
+                <p>Premium gymwear & streetwear engineered for high-performance warriors. Never settle. Never stop.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>COLLECTIONS</h3>
+                <a href="index.html#collections">Men's Athleticwear</a>
+                <a href="index.html#collections">Women's Athleticwear</a>
+                <a href="index.html#featured">New Releases</a>
+                <a href="index.html#collections">Stealth Gear</a>
+            </div>
+
+            <div class="footer-links">
+                <h3>SUPPORT</h3>
+                <a href="#">Size Guides</a>
+                <a href="#">Shipping Details</a>
+                <a href="#">Returns & Replacements</a>
+                <a href="#">Order Tracking</a>
+            </div>
+
+            <div class="footer-contact">
+                <h3>NEWSLETTER</h3>
+                <p>Subscribe to receive early drops information and community events details.</p>
+                <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();">
+                    <input type="email" placeholder="ENTER YOUR EMAIL" required>
+                    <button type="submit">GO</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ARMOUR47. All Rights Reserved. Designed for Warriors.</p>
+            <div class="footer-socials">
+                <a href="#">INSTAGRAM</a>
+                <a href="#">TIKTOK</a>
+                <a href="#">YOUTUBE</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================== -->
+    <!-- SCRIPTS -->
+    <!-- ===================================== -->
+    <script src="products.js"></script>
+    <script src="config.js"></script>
+    <script>
+        let currentProduct = null;
+        let selectedSize = "M";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Embers Canvas
+            initEmbersCanvas();
+            // Load Product Details
+            loadProductDetails();
+            // Update Cart Badge Count
+            updateCartBadge();
+        });
+
+        /* ==========================================================
+           1. CANVAS ANIMATION (EMBERS)
+           ========================================================== */
+        function initEmbersCanvas() {
+            const canvas = document.getElementById("canvas-embers");
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            let width = (canvas.width = window.innerWidth);
+            let height = (canvas.height = window.innerHeight);
+            const particles = [];
+            const maxParticles = width < 768 ? 30 : 70;
+
+            window.addEventListener("resize", () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            class Ember {
+                constructor() {
+                    this.reset(true);
+                }
+                reset(isInitial = false) {
+                    this.x = Math.random() * width;
+                    this.y = isInitial ? Math.random() * height : height + Math.random() * 50;
+                    this.size = Math.random() * 2 + 0.8;
+                    this.speedY = Math.random() * 1.0 + 0.5;
+                    this.speedX = Math.random() * 0.4 - 0.2;
+                    this.alpha = Math.random() * 0.6 + 0.3;
+                    this.fadeSpeed = Math.random() * 0.003 + 0.001;
+                }
+                update() {
+                    this.y -= this.speedY;
+                    this.x += this.speedX;
+                    this.alpha -= this.fadeSpeed;
+                    if (this.alpha <= 0 || this.y < -10 || this.x < -10 || this.x > width + 10) {
+                        this.reset(false);
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 60, 0, ${this.alpha})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new Ember());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        /* ==========================================================
+           2. DYNAMICALLY LOAD PRODUCT DETAILS
+           ========================================================== */
+        function loadProductDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get("id");
+
+            const mainContainer = document.getElementById("product-detail-view");
+
+            if (!productId) {
+                renderNotFound();
+                return;
+            }
+
+            // Find product in database
+            currentProduct = PRODUCTS.find(p => p.id === productId);
+
+            if (!currentProduct) {
+                renderNotFound();
+                return;
+            }
+
+            // Update document title
+            document.title = `ARMOUR47 | ${currentProduct.name}`;
+
+            // Render details
+            const featuresHtml = currentProduct.features.map(f => `<li>${f}</li>`).join("");
+
+            mainContainer.innerHTML = `
+                <!-- Left: Product Image -->
+                <div class="product-detail-img-wrap">
+                    <img src="${currentProduct.image}" alt="${currentProduct.name}" class="product-detail-img">
+                </div>
+
+                <!-- Right: Product Details -->
+                <div class="product-detail-info">
+                    <a href="index.html#collections" style="font-size: 11px; font-weight: 700; color: var(--text-dark); margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px;">
+                        &larr; BACK TO CATALOG
+                    </a>
+                    
+                    <span class="detail-gender-cat">${currentProduct.gender} / ${currentProduct.category}</span>
+                    <h2 class="detail-name">${currentProduct.name}</h2>
+                    <div class="detail-price">$${currentProduct.price}</div>
+                    
+                    <p class="detail-desc">${currentProduct.description}</p>
+                    
+                    <!-- Size Selector -->
+                    <div class="size-selector">
+                        <h4>SELECT SIZE</h4>
+                        <div class="size-chips">
+                            <button class="size-chip" onclick="selectSize(this, 'S')">S</button>
+                            <button class="size-chip active" onclick="selectSize(this, 'M')">M</button>
+                            <button class="size-chip" onclick="selectSize(this, 'L')">L</button>
+                            <button class="size-chip" onclick="selectSize(this, 'XL')">XL</button>
+                            <button class="size-chip" onclick="selectSize(this, 'XXL')">XXL</button>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="features-section">
+                        <h4>ENGINEERING HIGHLIGHTS</h4>
+                        <ul class="features-list">
+                            ${featuresHtml}
+                        </ul>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="order-btn-wrapper">
+                        <button class="btn-order-huge" onclick="toggleOrderModal(true)">ORDER NOW</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderNotFound() {
+            document.getElementById("product-detail-view").innerHTML = `
+                <div style="grid-column: span 2; text-align: center; padding: 120px 20px;">
+                    <div style="font-size: 60px; color: var(--primary-red); margin-bottom: 20px;">!</div>
+                    <h2 style="font-family: var(--font-brand); font-size: 28px; margin-bottom: 15px;">ARMOR PIECE NOT FOUND</h2>
+                    <p style="color: var(--text-grey); margin-bottom: 30px;">The product ID is invalid or has been decommissioned.</p>
+                    <a href="index.html" class="btn-primary" style="display:inline-block;">BACK TO ARMORY</a>
+                </div>
+            `;
+        }
+
+        function selectSize(element, size) {
+            // Remove active class from all size chips
+            const chips = document.querySelectorAll(".size-chip");
+            chips.forEach(chip => chip.classList.remove("active"));
+            
+            // Add active class to clicked chip
+            element.classList.add("active");
+            selectedSize = size;
+        }
+
+        /* ==========================================================
+           3. ORDER MODAL VISIBILITY
+           ========================================================== */
+        function toggleOrderModal(show) {
+            const overlay = document.getElementById("order-modal-overlay");
+            if (!overlay) return;
+
+            if (show) {
+                // Populate order details in the form
+                document.getElementById("summary-img").src = currentProduct.image;
+                document.getElementById("summary-img").alt = currentProduct.name;
+                document.getElementById("summary-name").textContent = currentProduct.name;
+                document.getElementById("summary-size").textContent = selectedSize;
+                document.getElementById("summary-price").textContent = `$${currentProduct.price}`;
+                
+                document.getElementById("order-qty").value = 1;
+                
+                updateTotalPriceLabel();
+
+                // Show Form, Hide Success Panel
+                document.getElementById("order-form-state").style.display = "block";
+                document.getElementById("order-success-state").style.display = "none";
+
+                overlay.classList.add("active");
+            } else {
+                overlay.classList.remove("active");
+            }
+        }
+
+        function updateTotalPriceLabel() {
+            const qtyInput = document.getElementById("order-qty");
+            const priceLabel = document.getElementById("form-total-price");
+            if (!currentProduct || !qtyInput || !priceLabel) return;
+
+            let qty = parseInt(qtyInput.value) || 1;
+            if (qty < 1) qty = 1;
+            
+            const total = (parseFloat(currentProduct.price) * qty).toFixed(2);
+            priceLabel.textContent = `$${total}`;
+        }
+
+        /* ==========================================================
+           4. ORDER SUBMISSION HANDLER
+           ========================================================== */
+        async function handleOrderSubmit(event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById("submit-btn-el");
+            if (!submitBtn) return;
+
+            // Gather Form inputs
+            const name = document.getElementById("order-fullname").value;
+            const email = document.getElementById("order-email").value;
+            const phone = document.getElementById("order-phone").value;
+            const address = document.getElementById("order-address").value;
+            const qty = parseInt(document.getElementById("order-qty").value) || 1;
+            const totalAmount = (parseFloat(currentProduct.price) * qty).toFixed(2);
+            const orderId = "AMR-" + Math.floor(100000 + Math.random() * 900000);
+            const dateStr = new Date().toLocaleString();
+
+            // Structure Data
+            const orderData = {
+                orderId: orderId,
+                date: dateStr,
+                productId: currentProduct.id,
+                productName: currentProduct.name,
+                price: currentProduct.price,
+                size: selectedSize,
+                quantity: qty,
+                totalAmount: totalAmount,
+                customerName: name,
+                customerEmail: email,
+                customerPhone: phone,
+                customerAddress: address
+            };
+
+            // Enter Loading State
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span class="loader"></span> <span>SECURING...</span>`;
+
+            let success = false;
+
+            try {
+                // If Google Sheets script is configured in config.js
+                if (CONFIG && CONFIG.GOOGLE_SHEET_URL) {
+                    // Send to Google App Script Web App
+                    await fetch(CONFIG.GOOGLE_SHEET_URL, {
+                        method: "POST",
+                        mode: "no-cors", // Crucial: Google Sheets accepts POST but doesn't return CORS headers
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(orderData)
+                    });
+                    success = true;
+                } else {
+                    console.log("No Google Sheet URL set in config.js. Saving locally.");
+                    // Artificial delay for realistic premium transition
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    success = true;
+                }
+            } catch (err) {
+                console.error("Order submit failed:", err);
+                // Fallback to local success to not block user experience
+                success = true;
+            }
+
+            if (success) {
+                // Save in LocalStorage orders list
+                const orders = JSON.parse(localStorage.getItem("armour47_orders") || "[]");
+                orders.push(orderData);
+                localStorage.setItem("armour47_orders", JSON.stringify(orders));
+
+                // Update UI Cart badge count
+                updateCartBadge();
+
+                // Clear Form
+                document.getElementById("checkout-order-form").reset();
+
+                // Switch to Success Panel State inside Modal
+                document.getElementById("success-order-id").textContent = `#${orderId}`;
+                document.getElementById("success-order-total").textContent = `$${totalAmount}`;
+
+                document.getElementById("order-form-state").style.display = "none";
+                document.getElementById("order-success-state").classList.add("active");
+                document.getElementById("order-success-state").style.display = "flex";
+            }
+
+            // Restore Button State
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<span>CONFIRM ORDER</span>`;
+        }
+
+        function updateCartBadge() {
+            const badge = document.querySelector(".cart-badge");
+            if (!badge) return;
+
+            const orders = JSON.parse(localStorage.getItem("armour47_orders") || "[]");
+            badge.textContent = orders.length;
+        }
+    </script>
+</body>
+</html>

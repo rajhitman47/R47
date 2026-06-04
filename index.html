@@ -1,416 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARMOUR47 | Designed for Warriors</title>
 
-<title>ARMOUR47</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:#fff;
-    color:#222;
-}
-
-/* HEADER */
-
-header{
-    background:#000;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.header-logo{
-    width:90px;
-    height:auto;
-}
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:30px;
-}
-
-nav ul li a{
-    color:white;
-    text-decoration:none;
-    font-weight:500;
-    transition:.3s;
-}
-
-nav ul li a:hover{
-    color:#d4af37;
-}
-
-/* HERO */
-
-.hero{
-    min-height:100vh;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:50px 20px;
-}
-
-.hero-content{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.hero-logo1{
-    width:700px;
-    max-width:90vw;
-    margin-bottom:20px;
-}
-
-.hero-logo2{
-    width:700px;
-    max-width:95vw;
-    margin-bottom:40px;
-}
-
-.hero h1{
-    color:white;
-    font-size:80px;
-    font-weight:800;
-    margin-bottom:15px;
-}
-
-.hero p{
-    color:white;
-    font-size:24px;
-    margin-bottom:35px;
-}
-
-.btn{
-    background:#d4af37;
-    color:black;
-    text-decoration:none;
-    padding:18px 40px;
-    border-radius:40px;
-    font-weight:700;
-    transition:.3s;
-}
-
-.btn:hover{
-    transform:translateY(-3px);
-}
-
-/* SECTIONS */
-
-.section{
-    padding:80px 8%;
-}
-
-.section h2{
-    text-align:center;
-    font-size:42px;
-    margin-bottom:50px;
-}
-
-.gray{
-    background:#f5f5f5;
-}
-
-/* CATEGORY */
-
-.category-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-}
-
-.category-card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
-    transition:.3s;
-}
-
-.category-card:hover{
-    transform:translateY(-10px);
-}
-
-.image-box{
-    height:300px;
-    background:#ddd;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#666;
-}
-
-.category-card h3{
-    padding:20px;
-    text-align:center;
-}
-
-/* PRODUCTS */
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-}
-
-.product-card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
-    transition:.3s;
-}
-
-.product-card:hover{
-    transform:translateY(-10px);
-}
-
-.product-card h3{
-    padding:20px;
-    text-align:center;
-}
-
-/* ABOUT */
-
-.about{
-    max-width:900px;
-    margin:auto;
-    text-align:center;
-    line-height:1.8;
-    font-size:18px;
-}
-
-/* CONTACT */
-
-.contact-form{
-    max-width:600px;
-    margin:auto;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.contact-form input,
-.contact-form textarea{
-    padding:15px;
-    border:1px solid #ccc;
-    border-radius:10px;
-}
-
-.contact-form button{
-    background:black;
-    color:white;
-    border:none;
-    padding:15px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-/* FOOTER */
-
-footer{
-    background:#000;
-    color:white;
-    text-align:center;
-    padding:25px;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-    header{
-        flex-direction:column;
-        gap:15px;
-        padding:15px;
-    }
-
-    .header-logo{
-        width:70px;
-    }
-
-    nav ul{
-        gap:15px;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .hero-logo1{
-        width:400px;
-    }
-
-    .hero-logo2{
-        width:320px;
-    }
-
-    .hero h1{
-        font-size:42px;
-    }
-
-    .hero p{
-        font-size:18px;
-        padding:0 10px;
-    }
-
-    .section h2{
-        font-size:32px;
-    }
-}
-
-</style>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
-<body>
+<body id="home">
 
-<header>
+    <!-- ===================================== -->
+    <!-- BACKGROUND EFFECTS -->
+    <!-- ===================================== -->
+    <div class="bg-overlay"></div>
+    <div class="smoke smoke1"></div>
+    <div class="smoke smoke2"></div>
+    <div class="smoke smoke3"></div>
 
-    <img src="r47.png" alt="R47 Logo" class="header-logo">
+    <!-- Premium Interactive Embers Canvas -->
+    <canvas id="canvas-embers"></canvas>
 
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#categories">Men</a></li>
-            <li><a href="#categories">Women</a></li>
-            <li><a href="#products">New Arrivals</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    <!-- ===================================== -->
+    <!-- HEADER -->
+    <!-- ===================================== -->
+    <header>
+        <div class="logo-area" onclick="window.location.href='#home'">
+            <img src="Elogo-trans.png" alt="R47 Logo" class="logo-icon">
+            <img src="ARMOUR47-trans.png" alt="Armour47" class="logo-text">
+        </div>
 
-</header>
+        <nav class="desktop-nav">
+            <a href="#home" class="active">HOME</a>
+            <a href="#collections">COLLECTIONS</a>
+            <a href="#featured">SHOP</a>
+            <a href="#footer">CONTACT</a>
+        </nav>
 
-<section class="hero" id="home">
+        <div class="nav-icons">
+            <button class="nav-btn" aria-label="Search" onclick="toggleSearch()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            <button class="nav-btn" aria-label="Account">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="nav-btn cart-btn" aria-label="Cart" onclick="window.location.href='#collections'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge">0</span>
+            </button>
+            <button class="nav-btn hamburger-btn" aria-label="Menu" id="hamburger-menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
 
-    <div class="hero-content">
-
-        <img src="logo.png" alt="Logo" class="hero-logo1">
-
-        <img src="ARMOUR47.png" alt="ARMOUR47" class="hero-logo2">
-
-        <h1>Built Different.</h1>
-
-        <p>
-            Premium Streetwear & Gym Wear Engineered For Everyday Legends.
-        </p>
-
-        <a href="https://www.instagram.com/rajhitman47/" class="btn">
-            View Our Social Page
-        </a>
-
+    <!-- Mobile Navigation Panel -->
+    <div class="mobile-nav-panel" id="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="logo-area">
+                <img src="Elogo-trans.png" alt="R47 Logo" class="logo-icon">
+                <img src="ARMOUR47-trans.png" alt="Armour47" class="logo-text">
+            </div>
+            <button class="close-btn" id="mobile-nav-close">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-links">
+            <a href="#home" onclick="toggleMobileMenu()">HOME</a>
+            <a href="#collections" onclick="toggleMobileMenu()">COLLECTIONS</a>
+            <a href="#featured" onclick="toggleMobileMenu()">SHOP</a>
+            <a href="#footer" onclick="toggleMobileMenu()">CONTACT</a>
+        </div>
+        <div class="mobile-nav-footer">
+            <p>JOIN THE MOVEMENT</p>
+            <div class="mobile-socials">
+                <a href="#">INSTAGRAM</a>
+                <a href="#">TIKTOK</a>
+                <a href="#">YOUTUBE</a>
+            </div>
+        </div>
     </div>
 
-</section>
-
-<section class="section" id="categories">
-
-    <h2>Shop By Category</h2>
-
-    <div class="category-grid">
-
-        <div class="category-card">
-            <div class="image-box">Men Collection</div>
-            <h3>Men</h3>
+    <!-- Active Search Bar Panel (Hidden by default) -->
+    <div class="search-overlay" id="search-bar-panel">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search product gears (e.g. compression, shoes)..."
+                oninput="handleSearch(this.value)">
+            <button class="close-btn" onclick="toggleSearch()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
         </div>
-
-        <div class="category-card">
-            <div class="image-box">Women Collection</div>
-            <h3>Women</h3>
-        </div>
-
-        <div class="category-card">
-            <div class="image-box">Accessories</div>
-            <h3>Accessories</h3>
-        </div>
-
+        <div class="search-results" id="search-results-container"></div>
     </div>
 
-</section>
+    <!-- ===================================== -->
+    <!-- HERO SECTION -->
+    <!-- ===================================== -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-brand">
+                <video autoplay loop muted playsinline class="hero-logo-video">
+                    <source src="logovid.mp4" type="video/mp4">
+                    <img src="Elogo-trans.png" alt="R47 Shield" class="hero-logo-shield">
+                </video>
+            </div>
+            <div class="hero-brand-text">
+                <img src="ARMOUR47-trans.png" alt="Armour47 Text" class="hero-logo-text">
+            </div>
 
-<section class="section gray" id="products">
+            <div class="hero-text">
+                <span class="sub-title">BUILT FOR STRENGTH</span>
+                <h1 class="hero-main-title">DESIGNED FOR WARRIORS</h1>
+                <p class="hero-desc">
+                    Premium gymwear & streetwear engineered for athletes who never settle and never stop.
+                    Built to endure, designed to dominate.
+                </p>
+            </div>
 
-    <h2>New Arrivals</h2>
-
-    <div class="product-grid">
-
-        <div class="product-card">
-            <div class="image-box">Product Image</div>
-            <h3>Premium T-Shirt</h3>
+            <div class="hero-buttons">
+                <a href="#collections" class="btn-primary">SHOP NOW</a>
+                <a href="#collections" class="btn-secondary">EXPLORE COLLECTIONS</a>
+            </div>
         </div>
 
-        <div class="product-card">
-            <div class="image-box">Product Image</div>
-            <h3>Oversized Hoodie</h3>
+        <div class="hero-image">
+            <img src="man-trans.png" alt="Warrior Athlete" class="athlete-img">
         </div>
 
-        <div class="product-card">
-            <div class="image-box">Product Image</div>
-            <h3>Gym Tank</h3>
+        <div class="social-side">
+            <span>JOIN THE MOVEMENT</span>
+            <div class="social-line"></div>
+            <a href="#" class="social-icon">IG</a>
+            <a href="#" class="social-icon">TT</a>
+            <a href="#" class="social-icon">YT</a>
+        </div>
+    </section>
+
+    <!-- ===================================== -->
+    <!-- TEASER CATEGORY CARDS SECTION -->
+    <!-- ===================================== -->
+    <section class="categories-teaser">
+        <div class="category-card" onclick="setActiveTabAndScroll('men', 'tshirts')">
+            <div class="card-image card1"></div>
+            <div class="card-content">
+                <h3>OVERSIZED TEES</h3>
+                <span class="explore-link">EXPLORE &rarr;</span>
+            </div>
+        </div>
+        <div class="category-card" onclick="setActiveTabAndScroll('men', 'pants')">
+            <div class="card-image card2"></div>
+            <div class="card-content">
+                <h3>PERFORMANCE WEAR</h3>
+                <span class="explore-link">EXPLORE &rarr;</span>
+            </div>
+        </div>
+        <div class="category-card" onclick="setActiveTabAndScroll('men', 'compressions')">
+            <div class="card-image card3"></div>
+            <div class="card-content">
+                <h3>COMPRESSION WEAR</h3>
+                <span class="explore-link">EXPLORE &rarr;</span>
+            </div>
+        </div>
+        <div class="category-card" onclick="setActiveTabAndScroll('men', 'caps')">
+            <div class="card-image card4"></div>
+            <div class="card-content">
+                <h3>ACCESSORIES GEAR</h3>
+                <span class="explore-link">EXPLORE &rarr;</span>
+            </div>
+        </div>
+        <div class="category-card" onclick="setActiveTabAndScroll('women', 'tshirts')">
+            <div class="card-image card5"></div>
+            <div class="card-content">
+                <h3>LIMITED DROPS</h3>
+                <span class="explore-link">EXPLORE &rarr;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================== -->
+    <!-- FEATURED AUTO-SCROLLING CAROUSEL -->
+    <!-- ===================================== -->
+    <section class="featured-carousel-section" id="featured">
+        <h2 class="section-title text-center">FEATURED GEAR</h2>
+        <p class="section-subtitle text-center">Continuous scrolling release drops</p>
+
+        <div class="marquee-wrapper">
+            <div class="marquee-track" id="carousel-marquee-track">
+                <!-- Dynamically populated from JS twice for infinite loop -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================== -->
+    <!-- COLLECTIONS SECTION -->
+    <!-- ===================================== -->
+    <section class="collections-section" id="collections">
+        <div class="collections-header">
+            <h2 class="section-title">ARMOUR47 CATALOG</h2>
+            <p class="section-subtitle">Select your category and build your armor</p>
+
+            <!-- Gender Selector Tabs -->
+            <div class="gender-tabs">
+                <button class="gender-tab-btn active" id="tab-btn-men" onclick="switchGenderTab('men')">MEN'S
+                    GEAR</button>
+                <button class="gender-tab-btn" id="tab-btn-women" onclick="switchGenderTab('women')">WOMEN'S
+                    GEAR</button>
+            </div>
         </div>
 
-        <div class="product-card">
-            <div class="image-box">Product Image</div>
-            <h3>Performance Joggers</h3>
+        <!-- Men's Collections Panel -->
+        <div class="collections-panel active" id="panel-men">
+            <!-- Dynamic grids will be populated here -->
         </div>
 
-    </div>
+        <!-- Women's Collections Panel -->
+        <div class="collections-panel" id="panel-women">
+            <!-- Dynamic grids will be populated here -->
+        </div>
+    </section>
 
-</section>
+    <!-- ===================================== -->
+    <!-- FOOTER -->
+    <!-- ===================================== -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="Elogo-trans.png" alt="R47 Shield" class="footer-icon">
+                <img src="ARMOUR47-trans.png" alt="Armour47" class="footer-text">
+                <p>Premium gymwear & streetwear engineered for high-performance warriors. Never settle. Never stop.</p>
+            </div>
 
-<section class="section">
+            <div class="footer-links">
+                <h3>COLLECTIONS</h3>
+                <a href="#collections" onclick="switchGenderTab('men')">Men's Athleticwear</a>
+                <a href="#collections" onclick="switchGenderTab('women')">Women's Athleticwear</a>
+                <a href="#featured">New Releases</a>
+                <a href="#collections">Stealth Gear</a>
+            </div>
 
-    <h2>About ARMOUR47</h2>
+            <div class="footer-links">
+                <h3>SUPPORT</h3>
+                <a href="#">Size Guides</a>
+                <a href="#">Shipping Details</a>
+                <a href="#">Returns & Replacements</a>
+                <a href="#">Order Tracking</a>
+            </div>
 
-    <div class="about">
+            <div class="footer-contact">
+                <h3>NEWSLETTER</h3>
+                <p>Subscribe to receive early drops information and community events details.</p>
+                <form class="subscribe-form"
+                    onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();">
+                    <input type="email" placeholder="ENTER YOUR EMAIL" required>
+                    <button type="submit">GO</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ARMOUR47. All Rights Reserved. Designed for Warriors.</p>
+            <div class="footer-socials">
+                <a href="#">INSTAGRAM</a>
+                <a href="#">TIKTOK</a>
+                <a href="#">YOUTUBE</a>
+            </div>
+        </div>
+    </footer>
 
-        ARMOUR47 is built for athletes, dreamers, creators and everyday legends.
-        We create premium streetwear and gym wear designed for performance,
-        confidence and style.
-
-    </div>
-
-</section>
-
-<section class="section gray" id="contact">
-
-    <h2>Contact Us</h2>
-
-    <form class="contact-form">
-
-        <input type="text" placeholder="Your Name">
-
-        <input type="email" placeholder="Your Email">
-
-        <textarea rows="5" placeholder="Your Message"></textarea>
-
-        <button type="submit">Send Message</button>
-
-    </form>
-
-</section>
-
-<footer>
-    © 2026 ARMOUR47. All Rights Reserved.
-</footer>
-
+    <!-- ===================================== -->
+    <!-- SCRIPTS -->
+    <!-- ===================================== -->
+    <script src="products.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
