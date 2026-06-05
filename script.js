@@ -193,12 +193,14 @@ function initMarqueeCarousel() {
     const showcaseItems = PRODUCTS.filter((_, index) => index % 2 === 0);
 
     function createMarqueeCard(product) {
+        const sbsContainerClass = product.isSideBySide ? "carousel-card sbs-container" : "carousel-card";
+        const sbsImgClass = product.isSideBySide ? "carousel-card-img sbs-img" : "carousel-card-img";
         return `
-            <div class="carousel-card" onclick="navigateToProduct('${product.id}')">
-                <img src="${product.image}" alt="${product.name}" class="carousel-card-img" loading="lazy">
+            <div class="${sbsContainerClass}" onclick="navigateToProduct('${product.id}')">
+                <img src="${product.image}" alt="${product.name}" class="${sbsImgClass}" loading="lazy">
                 <div class="carousel-card-info">
                     <h4>${product.name}</h4>
-                    <p>$${product.price}</p>
+                    <p>₹${parseFloat(product.price).toLocaleString('en-IN')}</p>
                 </div>
             </div>
         `;
@@ -221,12 +223,14 @@ function initMarqueeCarousel() {
 const CATEGORIES_MAPPING = {
     tshirts: "T-Shirts & Tops",
     pants: "Pants & Joggers",
+    shorts: "Training Shorts",
+    hoodies: "Athletic Hoodies",
     shoes: "Athletic Footwear",
     caps: "Headwear & Accessories",
     compressions: "Compression & Baselyr"
 };
 
-const CATEGORIES_ORDER = ["tshirts", "pants", "shoes", "caps", "compressions"];
+const CATEGORIES_ORDER = ["tshirts", "pants", "shorts", "hoodies", "shoes", "caps", "compressions"];
 
 function initProductCatalog() {
     GENDERS.forEach(gender => {
@@ -244,16 +248,18 @@ function initProductCatalog() {
             
             let gridCardsHtml = "";
             filtered.forEach(product => {
+                const wrapperClass = product.isSideBySide ? "product-img-wrapper sbs-container" : "product-img-wrapper";
+                const imgClass = product.isSideBySide ? "product-card-img sbs-img" : "product-card-img";
                 gridCardsHtml += `
                     <div class="product-card" onclick="navigateToProduct('${product.id}')" data-id="${product.id}">
-                        <div class="product-img-wrapper">
-                            <img src="${product.image}" alt="${product.name}" class="product-card-img" loading="lazy">
+                        <div class="${wrapperClass}">
+                            <img src="${product.image}" alt="${product.name}" class="${imgClass}" loading="lazy">
                         </div>
                         <div class="product-card-info">
                             <h3>${product.name}</h3>
                             <p>${product.description}</p>
                             <div class="product-card-footer">
-                                <span class="product-price">$${product.price}</span>
+                                <span class="product-price">₹${parseFloat(product.price).toLocaleString('en-IN')}</span>
                                 <button class="btn-buy-card">BUY NOW</button>
                             </div>
                         </div>
@@ -376,7 +382,7 @@ function handleSearch(query) {
                     <h4>${product.name}</h4>
                     <p>${product.gender.toUpperCase()} / ${product.category.toUpperCase()}</p>
                 </div>
-                <span class="search-result-price">$${product.price}</span>
+                <span class="search-result-price">₹${parseFloat(product.price).toLocaleString('en-IN')}</span>
             </div>
         `;
     });

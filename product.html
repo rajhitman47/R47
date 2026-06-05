@@ -93,7 +93,7 @@
                     <img src="" alt="" class="order-summary-img" id="summary-img">
                     <div class="order-summary-info">
                         <h4 id="summary-name">Product Name</h4>
-                        <p>Selected Size: <strong id="summary-size">M</strong> | Price: <strong id="summary-price">$0.00</strong></p>
+                        <p>Selected Size: <strong id="summary-size">M</strong> | Price: <strong id="summary-price">₹0.00</strong></p>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
                         <div class="form-group" style="justify-content: flex-end;">
                             <label style="margin-bottom: 2px;">TOTAL DUE</label>
                             <div style="font-family: var(--font-brand); font-size: 20px; font-weight: 800; color: var(--primary-red);" id="form-total-price">
-                                $0.00
+                                ₹0.00
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                 </p>
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); padding: 15px; border-radius: 8px; font-size: 12px; margin-bottom: 25px; width: 100%; text-align: left;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Order ID:</span><span style="font-family:var(--font-brand); color:var(--primary-red);" id="success-order-id">#12345</span></div>
-                    <div style="display:flex; justify-content:space-between;"><span>Amount Paid:</span><span style="font-weight:700;" id="success-order-total">$0.00</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span>Amount Paid:</span><span style="font-weight:700;" id="success-order-total">₹0.00</span></div>
                 </div>
                 <button class="btn-success-close" onclick="window.location.href='index.html'">RETURN TO HOME</button>
             </div>
@@ -204,11 +204,18 @@
     <!-- ===================================== -->
     <!-- SCRIPTS -->
     <!-- ===================================== -->
-    <script src="products.js"></script>
+    <script src="products_men.js"></script>
+    <script src="products_women.js"></script>
+    <script>
+        window.PRODUCTS = [...PRODUCTS_MEN, ...PRODUCTS_WOMEN];
+        window.GENDERS = ["men", "women"];
+        window.CATEGORIES = ["tshirts", "pants", "shoes", "caps", "compressions", "shorts", "hoodies"];
+    </script>
     <script src="config.js"></script>
     <script>
         let currentProduct = null;
         let selectedSize = "M";
+        let currentImageIndex = 0;
 
         document.addEventListener("DOMContentLoaded", () => {
             // Embers Canvas
@@ -302,16 +309,28 @@
                 return;
             }
 
+            // Reset image switcher index
+            currentImageIndex = 0;
+
             // Update document title
             document.title = `ARMOUR47 | ${currentProduct.name}`;
 
             // Render details
             const featuresHtml = currentProduct.features.map(f => `<li>${f}</li>`).join("");
 
+            const wrapperClass = currentProduct.isSideBySide ? "product-detail-img-wrap sbs-container" : "product-detail-img-wrap";
+            const imgClass = currentProduct.isSideBySide ? "product-detail-img sbs-img show-front" : "product-detail-img";
+
             mainContainer.innerHTML = `
                 <!-- Left: Product Image -->
-                <div class="product-detail-img-wrap">
-                    <img src="${currentProduct.image}" alt="${currentProduct.name}" class="product-detail-img">
+                <div class="${wrapperClass}">
+                    ${currentProduct.images && currentProduct.images.length > 1 ? `
+                        <button class="img-switch-btn btn-left" onclick="switchProductImage(-1)">&larr;</button>
+                    ` : ''}
+                    <img src="${currentProduct.image}" alt="${currentProduct.name}" class="${imgClass}" id="detail-main-img">
+                    ${currentProduct.images && currentProduct.images.length > 1 ? `
+                        <button class="img-switch-btn btn-right" onclick="switchProductImage(1)">&rarr;</button>
+                    ` : ''}
                 </div>
 
                 <!-- Right: Product Details -->
@@ -322,7 +341,7 @@
                     
                     <span class="detail-gender-cat">${currentProduct.gender} / ${currentProduct.category}</span>
                     <h2 class="detail-name">${currentProduct.name}</h2>
-                    <div class="detail-price">$${currentProduct.price}</div>
+                    <div class="detail-price">₹${parseFloat(currentProduct.price).toLocaleString('en-IN')}</div>
                     
                     <p class="detail-desc">${currentProduct.description}</p>
                     
@@ -375,6 +394,24 @@
             selectedSize = size;
         }
 
+        function switchProductImage(dir) {
+            if (!currentProduct || !currentProduct.images || currentProduct.images.length <= 1) return;
+            currentImageIndex = (currentImageIndex + dir + currentProduct.images.length) % currentProduct.images.length;
+            
+            const mainImg = document.getElementById("detail-main-img");
+            if (currentProduct.isSideBySide) {
+                if (currentImageIndex === 0) {
+                    mainImg.classList.remove("show-back");
+                    mainImg.classList.add("show-front");
+                } else {
+                    mainImg.classList.remove("show-front");
+                    mainImg.classList.add("show-back");
+                }
+            } else {
+                mainImg.src = currentProduct.images[currentImageIndex];
+            }
+        }
+
         /* ==========================================================
            3. ORDER MODAL VISIBILITY
            ========================================================== */
@@ -384,11 +421,11 @@
 
             if (show) {
                 // Populate order details in the form
-                document.getElementById("summary-img").src = currentProduct.image;
+                document.getElementById("summary-img").src = currentProduct.images ? currentProduct.images[currentImageIndex] : currentProduct.image;
                 document.getElementById("summary-img").alt = currentProduct.name;
                 document.getElementById("summary-name").textContent = currentProduct.name;
                 document.getElementById("summary-size").textContent = selectedSize;
-                document.getElementById("summary-price").textContent = `$${currentProduct.price}`;
+                document.getElementById("summary-price").textContent = `₹${parseFloat(currentProduct.price).toLocaleString('en-IN')}`;
                 
                 document.getElementById("order-qty").value = 1;
                 
@@ -413,7 +450,7 @@
             if (qty < 1) qty = 1;
             
             const total = (parseFloat(currentProduct.price) * qty).toFixed(2);
-            priceLabel.textContent = `$${total}`;
+            priceLabel.textContent = `₹${parseFloat(total).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
         }
 
         /* ==========================================================
@@ -496,7 +533,7 @@
 
                 // Switch to Success Panel State inside Modal
                 document.getElementById("success-order-id").textContent = `#${orderId}`;
-                document.getElementById("success-order-total").textContent = `$${totalAmount}`;
+                document.getElementById("success-order-total").textContent = `₹${parseFloat(totalAmount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
 
                 document.getElementById("order-form-state").style.display = "none";
                 document.getElementById("order-success-state").classList.add("active");
