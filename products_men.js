@@ -3,7 +3,7 @@
 
 const IMAGES_DATABASE_MEN = {
     tshirts: [
-        { front: "ts.JPEG", back: "ts1.JPEG" },
+        "ts.JPEG",
         { front: "ts2.png", back: "ts3-1.png" },
         { front: "ts3.png", back: "ts3-1.png" },
         { front: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=800&auto=format&fit=crop&q=80" },
