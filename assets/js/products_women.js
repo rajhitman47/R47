@@ -27,14 +27,14 @@ const IMAGE_POOLS_WOMEN = {
     shorts: [
         "assets/images/women/WCs,fb.jpg",
         "assets/images/women/WC2.jpg",
-        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80",
+        "assets/images/women/wc new.jpg",
+        "assets/images/women/wc new1.jpg",
         "https://images.unsplash.com/photo-1506629082925-534e3652def4?w=800&auto=format&fit=crop&q=80"
     ],
     hoodies: [
         "assets/images/women/Who.jpg",
         "assets/images/women/WC3.jpg",
-        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=80",
+        "assets/images/women/mh.jpg",
         "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop&q=80",
         "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80"
     ],
@@ -296,7 +296,7 @@ function generateProductsWomen() {
         const singular = CATEGORY_SINGULARS_WOMEN[category];
         const imagesPool = IMAGE_POOLS_WOMEN[category];
         const colorsPool = COLORS_POOL_WOMEN[category];
-        
+
         for (let i = 1; i <= 10; i++) {
             const id = `w-${category === "tshirts" ? "tee" : category === "pants" ? "pant" : category === "shoes" ? "shoe" : category === "caps" ? "cap" : category === "compressions" ? "comp" : category === "shorts" ? "short" : "hood"}-${i}`;
 

@@ -38,7 +38,7 @@ const IMAGE_POOLS_MEN = {
         "assets/images/men/Mhd-2.jpg",
         "assets/images/men/MHS 1.jpg",
         "assets/images/men/ho.jpg",
-        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop&q=80",
+        "assets/images/men/mh new.jpg",
         "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=80",
         "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?w=800&auto=format&fit=crop&q=80"
     ],
@@ -68,11 +68,11 @@ const IMAGE_POOLS_MEN = {
         "assets/images/women/CGts.jpg",
         "assets/images/men/Cts.jpg",
         "assets/images/women/CGps.jpg",
-        "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1506152983158-b4a74a01c721?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80",
+        "assets/images/men/mc new.jpg",
+        "assets/images/men/mc new1.jpg",
+        "assets/images/men/mc new2.jpg",
+        "assets/images/men/mc new3.jpg",
+        "assets/images/men/mc new3-back.jpg",
         "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80"
     ]
 };
