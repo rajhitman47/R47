@@ -7,7 +7,7 @@
     <title>ARMOUR47 | Designed for Warriors</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,8 +35,8 @@
     <!-- ===================================== -->
     <header>
         <div class="logo-area" onclick="window.location.href='#home'">
-            <img src="Elogo-trans.png" alt="R47 Logo" class="logo-icon">
-            <img src="ARMOUR47-trans.png" alt="Armour47" class="logo-text">
+            <img src="assets/images/Elogo-trans.png" alt="R47 Logo" class="logo-icon">
+            <img src="assets/images/ARMOUR47-trans.png" alt="Armour47" class="logo-text">
         </div>
 
         <nav class="desktop-nav">
@@ -85,8 +85,8 @@
     <div class="mobile-nav-panel" id="mobile-nav">
         <div class="mobile-nav-header">
             <div class="logo-area">
-                <img src="Elogo-trans.png" alt="R47 Logo" class="logo-icon">
-                <img src="ARMOUR47-trans.png" alt="Armour47" class="logo-text">
+                <img src="assets/images/Elogo-trans.png" alt="R47 Logo" class="logo-icon">
+                <img src="assets/images/ARMOUR47-trans.png" alt="Armour47" class="logo-text">
             </div>
             <button class="close-btn" id="mobile-nav-close">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -135,12 +135,12 @@
         <div class="hero-content">
             <div class="hero-brand">
                 <video autoplay loop muted playsinline class="hero-logo-video">
-                    <source src="logovid.mp4" type="video/mp4">
-                    <img src="Elogo-trans.png" alt="R47 Shield" class="hero-logo-shield">
+                    <source src="assets/images/logovid.mp4" type="video/mp4">
+                    <img src="assets/images/Elogo-trans.png" alt="R47 Shield" class="hero-logo-shield">
                 </video>
             </div>
             <div class="hero-brand-text">
-                <img src="ARMOUR47-trans.png" alt="Armour47 Text" class="hero-logo-text">
+                <img src="assets/images/ARMOUR47-trans.png" alt="Armour47 Text" class="hero-logo-text">
             </div>
 
             <div class="hero-text">
@@ -159,7 +159,10 @@
         </div>
 
         <div class="hero-image">
-            <img src="man-trans.png" alt="Warrior Athlete" class="athlete-img">
+            <img src="assets/images/man-trans.png" alt="Warrior Athlete 1" class="athlete-img active">
+            <img src="assets/images/women/WC TP.jpg" alt="Warrior Athlete 2" class="athlete-img">
+            <img src="assets/images/men/Mhd-1.jpg" alt="Warrior Athlete 3" class="athlete-img">
+            <img src="assets/images/women/Who.jpg" alt="Warrior Athlete 4" class="athlete-img">
         </div>
 
         <div class="social-side">
@@ -260,8 +263,8 @@
     <footer id="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="Elogo-trans.png" alt="R47 Shield" class="footer-icon">
-                <img src="ARMOUR47-trans.png" alt="Armour47" class="footer-text">
+                <img src="assets/images/Elogo-trans.png" alt="R47 Shield" class="footer-icon">
+                <img src="assets/images/ARMOUR47-trans.png" alt="Armour47" class="footer-text">
                 <p>Premium gymwear & streetwear engineered for high-performance warriors. Never settle. Never stop.</p>
             </div>
 
@@ -304,15 +307,15 @@
     <!-- ===================================== -->
     <!-- SCRIPTS -->
     <!-- ===================================== -->
-    <script src="products_men.js"></script>
-    <script src="products_women.js"></script>
+    <script src="assets/js/products_men.js"></script>
+    <script src="assets/js/products_women.js"></script>
     <script>
         window.PRODUCTS = [...PRODUCTS_MEN, ...PRODUCTS_WOMEN];
         window.GENDERS = ["men", "women"];
         window.CATEGORIES = ["tshirts", "pants", "shoes", "caps", "compressions", "shorts", "hoodies"];
     </script>
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>

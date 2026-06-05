@@ -6,7 +6,7 @@
     <title>ARMOUR47 | Product Details</title>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,8 +30,8 @@
     <!-- ===================================== -->
     <header>
         <div class="logo-area" onclick="window.location.href='index.html'">
-            <img src="Elogo-trans.png" alt="R47 Logo" class="logo-icon">
-            <img src="ARMOUR47-trans.png" alt="Armour47" class="logo-text">
+            <img src="assets/images/Elogo-trans.png" alt="R47 Logo" class="logo-icon">
+            <img src="assets/images/ARMOUR47-trans.png" alt="Armour47" class="logo-text">
         </div>
 
         <nav class="desktop-nav">
@@ -161,8 +161,8 @@
     <footer id="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="Elogo-trans.png" alt="R47 Shield" class="footer-icon">
-                <img src="ARMOUR47-trans.png" alt="Armour47" class="footer-text">
+                <img src="assets/images/Elogo-trans.png" alt="R47 Shield" class="footer-icon">
+                <img src="assets/images/ARMOUR47-trans.png" alt="Armour47" class="footer-text">
                 <p>Premium gymwear & streetwear engineered for high-performance warriors. Never settle. Never stop.</p>
             </div>
             
@@ -204,17 +204,18 @@
     <!-- ===================================== -->
     <!-- SCRIPTS -->
     <!-- ===================================== -->
-    <script src="products_men.js"></script>
-    <script src="products_women.js"></script>
+    <script src="assets/js/products_men.js"></script>
+    <script src="assets/js/products_women.js"></script>
     <script>
         window.PRODUCTS = [...PRODUCTS_MEN, ...PRODUCTS_WOMEN];
         window.GENDERS = ["men", "women"];
         window.CATEGORIES = ["tshirts", "pants", "shoes", "caps", "compressions", "shorts", "hoodies"];
     </script>
-    <script src="config.js"></script>
+    <script src="assets/js/config.js"></script>
     <script>
         let currentProduct = null;
         let selectedSize = "M";
+        let selectedColor = "";
         let currentImageIndex = 0;
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -312,24 +313,46 @@
             // Reset image switcher index
             currentImageIndex = 0;
 
+            // Set default color
+            selectedColor = currentProduct.colors && currentProduct.colors.length > 0 ? currentProduct.colors[0].name : "Standard";
+
             // Update document title
             document.title = `ARMOUR47 | ${currentProduct.name}`;
 
             // Render details
             const featuresHtml = currentProduct.features.map(f => `<li>${f}</li>`).join("");
 
-            const wrapperClass = currentProduct.isSideBySide ? "product-detail-img-wrap sbs-container" : "product-detail-img-wrap";
-            const imgClass = currentProduct.isSideBySide ? "product-detail-img sbs-img show-front" : "product-detail-img";
+            const wrapperClass = "product-detail-img-wrap";
+            const imgClass = "product-detail-img";
 
             mainContainer.innerHTML = `
-                <!-- Left: Product Image -->
-                <div class="${wrapperClass}">
+                <!-- Left: Product Image Gallery -->
+                <div class="product-gallery-container">
+                    <div class="${wrapperClass}">
+                        ${currentProduct.images && currentProduct.images.length > 1 ? `
+                            <button class="img-switch-btn btn-left" onclick="switchProductImage(-1)" aria-label="Previous image">&larr;</button>
+                        ` : ''}
+                        
+                        <div class="main-image-scroller" id="main-image-scroller">
+                            ${(currentProduct.images || [currentProduct.image]).map(img => `
+                                <img src="${img}" alt="${currentProduct.name}" class="${imgClass}">
+                            `).join('')}
+                        </div>
+                        
+                        ${currentProduct.images && currentProduct.images.length > 1 ? `
+                            <button class="img-switch-btn btn-right" onclick="switchProductImage(1)" aria-label="Next image">&rarr;</button>
+                        ` : ''}
+                    </div>
+                    
+                    <!-- Thumbnails list -->
                     ${currentProduct.images && currentProduct.images.length > 1 ? `
-                        <button class="img-switch-btn btn-left" onclick="switchProductImage(-1)">&larr;</button>
-                    ` : ''}
-                    <img src="${currentProduct.image}" alt="${currentProduct.name}" class="${imgClass}" id="detail-main-img">
-                    ${currentProduct.images && currentProduct.images.length > 1 ? `
-                        <button class="img-switch-btn btn-right" onclick="switchProductImage(1)">&rarr;</button>
+                        <div class="product-thumbnails">
+                            ${currentProduct.images.map((img, idx) => `
+                                <div class="thumbnail-item ${idx === 0 ? 'active' : ''}" onclick="setProductImage(${idx})">
+                                    <img src="${img}" alt="${currentProduct.name} View ${idx + 1}">
+                                </div>
+                            `).join('')}
+                        </div>
                     ` : ''}
                 </div>
 
@@ -357,6 +380,23 @@
                         </div>
                     </div>
 
+                    <!-- Color Selector -->
+                    ${currentProduct.colors && currentProduct.colors.length > 0 ? `
+                        <div class="color-selector">
+                            <h4>SELECT COLOR</h4>
+                            <div class="color-chips">
+                                ${currentProduct.colors.map((color, idx) => `
+                                    <button class="color-chip ${idx === 0 ? 'active' : ''}" 
+                                            style="background-color: ${color.hex};" 
+                                            onclick="selectColor(this, '${color.name}')"
+                                            title="${color.name}"
+                                            aria-label="${color.name}"></button>
+                                `).join('')}
+                            </div>
+                            <span id="selected-color-name" class="selected-color-label">${currentProduct.colors[0].name}</span>
+                        </div>
+                    ` : ''}
+                    
                     <!-- Features -->
                     <div class="features-section">
                         <h4>ENGINEERING HIGHLIGHTS</h4>
@@ -371,6 +411,24 @@
                     </div>
                 </div>
             `;
+
+            // Sync scroll snappings to thumbnail states
+            setTimeout(() => {
+                const scroller = document.getElementById("main-image-scroller");
+                if (scroller) {
+                    let isScrolling;
+                    scroller.addEventListener("scroll", () => {
+                        window.clearTimeout(isScrolling);
+                        isScrolling = setTimeout(() => {
+                            const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
+                            if (index !== currentImageIndex && index >= 0 && index < currentProduct.images.length) {
+                                currentImageIndex = index;
+                                updateActiveThumbnailOnly();
+                            }
+                        }, 80);
+                    });
+                }
+            }, 100);
         }
 
         function renderNotFound() {
@@ -394,22 +452,51 @@
             selectedSize = size;
         }
 
+        function selectColor(element, colorName) {
+            // Remove active class from all color chips
+            const chips = document.querySelectorAll(".color-chip");
+            chips.forEach(chip => chip.classList.remove("active"));
+            
+            // Add active class to clicked chip
+            element.classList.add("active");
+            selectedColor = colorName;
+
+            const nameLabel = document.getElementById("selected-color-name");
+            if (nameLabel) {
+                nameLabel.textContent = colorName;
+            }
+        }
+
+        function setProductImage(index) {
+            if (!currentProduct || !currentProduct.images || currentProduct.images.length <= 1) return;
+            currentImageIndex = index;
+            
+            const scroller = document.getElementById("main-image-scroller");
+            if (scroller) {
+                const imgWidth = scroller.clientWidth;
+                scroller.scrollTo({
+                    left: imgWidth * currentImageIndex,
+                    behavior: "smooth"
+                });
+            }
+            updateActiveThumbnailOnly();
+        }
+
         function switchProductImage(dir) {
             if (!currentProduct || !currentProduct.images || currentProduct.images.length <= 1) return;
             currentImageIndex = (currentImageIndex + dir + currentProduct.images.length) % currentProduct.images.length;
-            
-            const mainImg = document.getElementById("detail-main-img");
-            if (currentProduct.isSideBySide) {
-                if (currentImageIndex === 0) {
-                    mainImg.classList.remove("show-back");
-                    mainImg.classList.add("show-front");
+            setProductImage(currentImageIndex);
+        }
+
+        function updateActiveThumbnailOnly() {
+            const thumbnails = document.querySelectorAll(".thumbnail-item");
+            thumbnails.forEach((thumb, idx) => {
+                if (idx === currentImageIndex) {
+                    thumb.classList.add("active");
                 } else {
-                    mainImg.classList.remove("show-front");
-                    mainImg.classList.add("show-back");
+                    thumb.classList.remove("active");
                 }
-            } else {
-                mainImg.src = currentProduct.images[currentImageIndex];
-            }
+            });
         }
 
         /* ==========================================================
@@ -424,7 +511,7 @@
                 document.getElementById("summary-img").src = currentProduct.images ? currentProduct.images[currentImageIndex] : currentProduct.image;
                 document.getElementById("summary-img").alt = currentProduct.name;
                 document.getElementById("summary-name").textContent = currentProduct.name;
-                document.getElementById("summary-size").textContent = selectedSize;
+                document.getElementById("summary-size").textContent = `${selectedSize} | Color: ${selectedColor}`;
                 document.getElementById("summary-price").textContent = `₹${parseFloat(currentProduct.price).toLocaleString('en-IN')}`;
                 
                 document.getElementById("order-qty").value = 1;
@@ -480,6 +567,7 @@
                 productName: currentProduct.name,
                 price: currentProduct.price,
                 size: selectedSize,
+                color: selectedColor,
                 quantity: qty,
                 totalAmount: totalAmount,
                 customerName: name,

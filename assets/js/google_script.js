@@ -47,6 +47,7 @@ function doPost(e) {
         "Product Name", 
         "Unit Price", 
         "Size", 
+        "Color", 
         "Quantity", 
         "Total Amount", 
         "Customer Name", 
@@ -55,7 +56,7 @@ function doPost(e) {
         "Shipping Address"
       ]);
       // Format header row (bold, grey background)
-      var headerRange = sheet.getRange(1, 1, 1, 12);
+      var headerRange = sheet.getRange(1, 1, 1, 13);
       headerRange.setFontWeight("bold");
       headerRange.setBackground("#e0e0e0");
       sheet.setFrozenRows(1);
@@ -69,6 +70,7 @@ function doPost(e) {
       data.productName,
       parseFloat(data.price),
       data.size,
+      data.color,
       parseInt(data.quantity),
       parseFloat(data.totalAmount),
       data.customerName,

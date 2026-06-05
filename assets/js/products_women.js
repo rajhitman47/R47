@@ -1,38 +1,117 @@
 // Armour47 Women's Product Database Generator
-// Generates exactly 10 unique premium products per category for Women (50 total products)
+// Generates exactly 10 unique premium products per category for Women (70 total products)
 
-const IMAGES_DATABASE_WOMEN = {
+const IMAGE_POOLS_WOMEN = {
     tshirts: [
-        { front: "WC TP.jpg", back: "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=800&auto=format&fit=crop&q=80" },
-        { front: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&auto=format&fit=crop&q=80" },
-        { front: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=800&auto=format&fit=crop&q=80" }
+        "assets/images/women/WC TP.jpg",
+        "assets/images/women/WC1.jpg",
+        "assets/images/women/WC2.jpg",
+        "assets/images/women/WC3.jpg",
+        "assets/images/women/WC4.jpg",
+        "assets/images/WC all.jpg",
+        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&auto=format&fit=crop&q=80"
     ],
     pants: [
-        { front: "Wtp,fb.jpg", back: "https://images.unsplash.com/photo-1506629082925-534e3652def4?w=800&auto=format&fit=crop&q=80" },
-        { front: "WC TP.jpg", back: "https://images.unsplash.com/photo-1582552938357-32b906df43cd?w=800&auto=format&fit=crop&q=80" },
-        { front: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80" }
+        "assets/images/women/Wtp,fb.jpg",
+        "assets/images/women/WC TP.jpg",
+        "assets/images/women/WC4.jpg",
+        "assets/images/women/WC1.jpg",
+        "https://images.unsplash.com/photo-1506629082925-534e3652def4?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582552938357-32b906df43cd?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80"
     ],
     shorts: [
-        { front: "WCs,fb.jpg", back: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80" },
-        { front: "https://images.unsplash.com/photo-1506629082925-534e3652def4?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1506629082925-534e3652def4?w=800&auto=format&fit=crop&q=80" }
+        "assets/images/women/WCs,fb.jpg",
+        "assets/images/women/WC2.jpg",
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1506629082925-534e3652def4?w=800&auto=format&fit=crop&q=80"
     ],
     hoodies: [
-        { front: "Who.jpg", back: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop&q=80" },
-        { front: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80" }
+        "assets/images/women/Who.jpg",
+        "assets/images/women/WC3.jpg",
+        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80"
     ],
     shoes: [
-        { front: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80" },
-        { front: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80", back: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&auto=format&fit=crop&q=80" }
+        "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80",
+        "assets/images/accessories/ss.png"
     ],
     caps: [
-        { front: "cp.jpg", back: "https://images.unsplash.com/photo-1575428262454-d222e4149dbf?w=800&auto=format&fit=crop&q=80" },
-        { front: "cp1.jpg", back: "https://images.unsplash.com/photo-1534215754734-18e55d13e346?w=800&auto=format&fit=crop&q=80" }
+        "assets/images/accessories/cp.jpg",
+        "assets/images/accessories/cp1.jpg",
+        "https://images.unsplash.com/photo-1576871337622-98d48d4aa53e?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1575428262454-d222e4149dbf?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1534215754734-18e55d13e346?w=800&auto=format&fit=crop&q=80"
     ],
     compressions: [
-        { front: "WC t&s-1.jpg", back: "WC t&s-1.jpg" },
-        { front: "WC t&s-2.jpg", back: "WC t&s-2.jpg" },
-        { front: "WC t&s-3.jpg", back: "WC t&s-3.jpg", isSideBySide: true },
-        { front: "WC t&s.jpg", back: "WC t&s.jpg" }
+        "assets/images/women/WC t&s-1.jpg",
+        "assets/images/women/WC t&s-2.jpg",
+        "assets/images/women/WC t&s-3.jpg",
+        "assets/images/women/Wc t&s.jpg"
+    ]
+};
+
+// Override Dictionary: Add product ID keys here to explicitly set their image lists (must have 4 images)
+const CUSTOM_PRODUCT_IMAGES_WOMEN = {
+    // Example usage:
+    // "w-tee-2": [
+    //     "assets/images/women/WC1.jpg",
+    //     "assets/images/women/WC2.jpg",
+    //     "assets/images/women/WC3.jpg",
+    //     "assets/images/women/WC4.jpg"
+    // ]
+};
+
+const COLORS_POOL_WOMEN = {
+    tshirts: [
+        { name: "Carbon Black", hex: "#111111" },
+        { name: "Crimson Red", hex: "#ff2020" },
+        { name: "Stealth Grey", hex: "#555555" },
+        { name: "Arctic White", hex: "#ffffff" }
+    ],
+    pants: [
+        { name: "Carbon Black", hex: "#111111" },
+        { name: "Stealth Grey", hex: "#555555" },
+        { name: "Military Olive", hex: "#3b4a3f" },
+        { name: "Navy Blue", hex: "#1f2d3d" }
+    ],
+    shorts: [
+        { name: "Carbon Black", hex: "#111111" },
+        { name: "Stealth Grey", hex: "#555555" },
+        { name: "Military Olive", hex: "#3b4a3f" },
+        { name: "Navy Blue", hex: "#1f2d3d" }
+    ],
+    hoodies: [
+        { name: "Carbon Black", hex: "#111111" },
+        { name: "Stealth Grey", hex: "#555555" },
+        { name: "Crimson Red", hex: "#ff2020" },
+        { name: "Navy Blue", hex: "#1f2d3d" }
+    ],
+    shoes: [
+        { name: "Carbon Black", hex: "#111111" },
+        { name: "Stealth Grey", hex: "#555555" },
+        { name: "Crimson Red", hex: "#ff2020" },
+        { name: "Navy Blue", hex: "#1f2d3d" }
+    ],
+    caps: [
+        { name: "Carbon Black", hex: "#111111" },
+        { name: "Stealth Grey", hex: "#555555" },
+        { name: "Crimson Red", hex: "#ff2020" },
+        { name: "Navy Blue", hex: "#1f2d3d" }
+    ],
+    compressions: [
+        { name: "Carbon Black", hex: "#111111" },
+        { name: "Crimson Red", hex: "#ff2020" },
+        { name: "Navy Blue", hex: "#1f2d3d" },
+        { name: "Stealth Grey", hex: "#555555" }
     ]
 };
 
@@ -59,10 +138,12 @@ const CORE_PRODUCTS_WOMEN = [
         id: "w-tee-1",
         name: "Signature Crop Tee",
         price: "1499.00",
-        image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80",
+        image: "assets/images/women/WC TP.jpg",
         images: [
-            "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=800&auto=format&fit=crop&q=80"
+            "assets/images/women/WC TP.jpg",
+            "assets/images/women/WC1.jpg",
+            "assets/images/women/WC2.jpg",
+            "assets/images/women/WC3.jpg"
         ],
         category: "tshirts",
         gender: "women",
@@ -72,16 +153,19 @@ const CORE_PRODUCTS_WOMEN = [
             "On-trend cropped boxy fit",
             "Drop shoulder styling",
             "Heat-sealed neck label for irritation-free comfort"
-        ]
+        ],
+        colors: COLORS_POOL_WOMEN.tshirts
     },
     {
         id: "w-pant-1",
         name: "Apex Ribbed Joggers",
         price: "2799.00",
-        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80",
+        image: "assets/images/women/Wtp,fb.jpg",
         images: [
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1506629082925-534e3652def4?w=800&auto=format&fit=crop&q=80"
+            "assets/images/women/Wtp,fb.jpg",
+            "assets/images/women/WC TP.jpg",
+            "assets/images/women/WC4.jpg",
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80"
         ],
         category: "pants",
         gender: "women",
@@ -91,7 +175,8 @@ const CORE_PRODUCTS_WOMEN = [
             "High-rise flattering supportive waistband",
             "Deep side slip-in pockets",
             "Cuffed ankles for a tailored look"
-        ]
+        ],
+        colors: COLORS_POOL_WOMEN.pants
     },
     {
         id: "w-shoe-1",
@@ -100,7 +185,9 @@ const CORE_PRODUCTS_WOMEN = [
         image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80",
         images: [
             "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80",
+            "assets/images/accessories/ss.png"
         ],
         category: "shoes",
         gender: "women",
@@ -110,7 +197,8 @@ const CORE_PRODUCTS_WOMEN = [
             "Optimized arch support structure",
             "Gum-rubber outsole for premium multidirectional grip",
             "Chic dark silhouette with red neon lace tips"
-        ]
+        ],
+        colors: COLORS_POOL_WOMEN.shoes
     },
     {
         id: "w-cap-1",
@@ -119,7 +207,9 @@ const CORE_PRODUCTS_WOMEN = [
         image: "https://images.unsplash.com/photo-1576871337622-98d48d4aa53e?w=800&auto=format&fit=crop&q=80",
         images: [
             "https://images.unsplash.com/photo-1576871337622-98d48d4aa53e?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1575428262454-d222e4149dbf?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1575428262454-d222e4149dbf?w=800&auto=format&fit=crop&q=80",
+            "assets/images/accessories/cp.jpg",
+            "assets/images/accessories/cp1.jpg"
         ],
         category: "caps",
         gender: "women",
@@ -129,7 +219,8 @@ const CORE_PRODUCTS_WOMEN = [
             "Hook-and-loop adjustable strap with elastic loop",
             "UPF 50+ sun protection shield",
             "Ponytail friendly design"
-        ]
+        ],
+        colors: COLORS_POOL_WOMEN.caps
     },
     {
         id: "w-comp-1",
@@ -138,7 +229,9 @@ const CORE_PRODUCTS_WOMEN = [
         image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80",
         images: [
             "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+            "assets/images/women/Wc t&s.jpg",
+            "assets/images/women/WC t&s-1.jpg"
         ],
         category: "compressions",
         gender: "women",
@@ -148,16 +241,19 @@ const CORE_PRODUCTS_WOMEN = [
             "High-waisted tummy control waistband",
             "Hidden card/key waistband pocket",
             "Seamless front panel to prevent riding up"
-        ]
+        ],
+        colors: COLORS_POOL_WOMEN.compressions
     },
     {
         id: "w-short-1",
         name: "Valkyrie Training Shorts",
         price: "1499.00",
-        image: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&auto=format&fit=crop&q=80",
+        image: "assets/images/women/WCs,fb.jpg",
         images: [
+            "assets/images/women/WCs,fb.jpg",
             "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&auto=format&fit=crop&q=80",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80"
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80",
+            "assets/images/women/WC2.jpg"
         ],
         category: "shorts",
         gender: "women",
@@ -167,14 +263,17 @@ const CORE_PRODUCTS_WOMEN = [
             "Hidden card waistband utility pocket",
             "Moisture-wicking active dry fabric",
             "Seamless front contours to prevent ride up"
-        ]
+        ],
+        colors: COLORS_POOL_WOMEN.shorts
     },
     {
         id: "w-hood-1",
         name: "Valkyrie Crop Hoodie",
         price: "3299.00",
-        image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=80",
+        image: "assets/images/women/Who.jpg",
         images: [
+            "assets/images/women/Who.jpg",
+            "assets/images/women/WC3.jpg",
             "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&auto=format&fit=crop&q=80",
             "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop&q=80"
         ],
@@ -186,7 +285,8 @@ const CORE_PRODUCTS_WOMEN = [
             "Chic cropped boxy streetwear crop styling",
             "Double layered hood with clean finishes",
             "Ribbed cuff cuffs and shape retention waist"
-        ]
+        ],
+        colors: COLORS_POOL_WOMEN.hoodies
     }
 ];
 
@@ -194,7 +294,9 @@ function generateProductsWomen() {
     const productsList = [];
     CATEGORIES_WOMEN.forEach(category => {
         const singular = CATEGORY_SINGULARS_WOMEN[category];
-        const images = IMAGES_DATABASE_WOMEN[category];
+        const imagesPool = IMAGE_POOLS_WOMEN[category];
+        const colorsPool = COLORS_POOL_WOMEN[category];
+        
         for (let i = 1; i <= 10; i++) {
             const id = `w-${category === "tshirts" ? "tee" : category === "pants" ? "pant" : category === "shoes" ? "shoe" : category === "caps" ? "cap" : category === "compressions" ? "comp" : category === "shorts" ? "short" : "hood"}-${i}`;
 
@@ -218,10 +320,18 @@ function generateProductsWomen() {
             if (category === "hoodies") basePrice = 2599;
             const price = (basePrice + (i * 100)).toFixed(2);
 
-            const imagePair = images[(i - 1) % images.length];
-            const image = imagePair.front;
-            const backImage = imagePair.back;
-            const isSideBySide = !!imagePair.isSideBySide;
+            // Handle custom images selection from CUSTOM_PRODUCT_IMAGES_WOMEN dictionary if defined
+            let productImages = [];
+            if (CUSTOM_PRODUCT_IMAGES_WOMEN && CUSTOM_PRODUCT_IMAGES_WOMEN[id]) {
+                productImages = CUSTOM_PRODUCT_IMAGES_WOMEN[id];
+            } else {
+                // Generate exactly 4 unique images from the pool
+                for (let j = 0; j < 4; j++) {
+                    const imgIndex = (i - 1 + j) % imagesPool.length;
+                    productImages.push(imagesPool[imgIndex]);
+                }
+            }
+            const image = productImages[0];
 
             const description = `Engineered for high performance, the Women's ${name} utilizes premium material constructs designed to elevate your training. Breathable, durable, and styled for modern warriors.`;
 
@@ -237,8 +347,8 @@ function generateProductsWomen() {
                 name,
                 price,
                 image,
-                images: [image, backImage],
-                isSideBySide,
+                images: productImages,
+                colors: colorsPool,
                 category,
                 gender: "women",
                 description,

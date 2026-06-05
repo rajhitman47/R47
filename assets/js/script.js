@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initMarqueeCarousel();
     initProductCatalog();
     checkUrlHash();
+    initHeroSlider();
 });
 
 /* ==========================================================================
@@ -127,11 +128,11 @@ function initEmbersCanvas() {
 
 function initParallax() {
     const hero = document.querySelector(".hero");
-    const athleteImg = document.querySelector(".athlete-img");
+    const heroImageWrap = document.querySelector(".hero-image");
     const bgOverlay = document.querySelector(".bg-overlay");
     const heroContent = document.querySelector(".hero-content");
 
-    if (!hero || !athleteImg) return;
+    if (!hero || !heroImageWrap) return;
 
     window.addEventListener("mousemove", (e) => {
         // Calculate offset from center (-0.5 to 0.5)
@@ -139,12 +140,24 @@ function initParallax() {
         const moveY = (e.clientY / window.innerHeight) - 0.5;
 
         // Shift layers by different weights to create depth
-        athleteImg.style.transform = `translate(${moveX * -18}px, ${moveY * -12}px) scale(1.02)`;
+        heroImageWrap.style.transform = `translate(${moveX * -18}px, ${moveY * -12}px)`;
         heroContent.style.transform = `translate(${moveX * 10}px, ${moveY * 6}px)`;
         if (bgOverlay) {
             bgOverlay.style.backgroundPosition = `${50 + moveX * 4}% ${50 + moveY * 4}%`;
         }
     });
+}
+
+function initHeroSlider() {
+    const images = document.querySelectorAll(".hero-image .athlete-img");
+    if (images.length <= 1) return;
+
+    let currentIndex = 0;
+    setInterval(() => {
+        images[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add("active");
+    }, 4500); // Cross-fade every 4.5 seconds for a premium, continuous feel
 }
 
 /* ==========================================================================
