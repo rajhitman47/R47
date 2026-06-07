@@ -1955,7 +1955,8 @@ footer {
         height: 38px;
     }
 
-    .logo-text {
+    .logo-text,
+    .logo-text1 {
         height: 18px;
     }
 
@@ -1969,7 +1970,8 @@ footer {
 
     .hero-logo-shield,
     .hero-logo-video {
-        height: 50px;
+        height: 100px;
+        padding: 0 10px;
     }
 
     .hero-buttons {
@@ -2052,8 +2054,28 @@ footer {
     }
 }
 
-/* Very Small Mobiles */
 @media (max-width: 480px) {
+    header {
+        padding: 0 10px;
+    }
+
+    .logo-area {
+        gap: 8px;
+    }
+
+    .logo-icon {
+        height: 32px;
+    }
+
+    .logo-text,
+    .logo-text1 {
+        height: 16px;
+    }
+
+    .nav-icons {
+        gap: 12px;
+    }
+
     .hero-main-title {
         font-size: 26px;
     }
