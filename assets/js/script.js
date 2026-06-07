@@ -234,30 +234,108 @@ function initMarqueeCarousel() {
    ========================================================================== */
 
 const CATEGORIES_MAPPING = {
-    tshirts: "T-Shirts & Tops",
-    pants: "Pants & Joggers",
+    // Men & Women categories
+    Cpants: "Compression Pants",
+    Ctshrits: "Compression T-Shirts",
+    "gym gear": "Gym Gear",
+    hoodies: "Hoodies",
+    oversized: "Oversized Tees",
+    pants: "Track Pants & Joggers",
     shorts: "Training Shorts",
-    hoodies: "Athletic Hoodies",
-    shoes: "Athletic Footwear",
-    caps: "Headwear & Accessories",
-    compressions: "Compression & Baselyr"
+    sleless: "Sleeveless Tops",
+    tshrits: "Athletic T-Shirts",
+    
+    // Accessories categories
+    "all gears": "Sports Gear",
+    caps: "Caps & Headwear",
+    shoes: "Athletic Footwear"
 };
 
-const CATEGORIES_ORDER = ["tshirts", "pants", "shorts", "hoodies", "shoes", "caps", "compressions"];
+const CATEGORY_ORDER = [
+    "Cpants", "Ctshrits", "gym gear", "hoodies", "oversized", "pants", "shorts", "sleless", "tshrits",
+    "all gears", "caps", "shoes"
+];
+
+function normalizeProductsList() {
+    window.PRODUCTS = window.PRODUCTS.map((p, index) => {
+        const normalized = { ...p };
+        // Determine gender from path or category if not specified
+        if (!normalized.gender) {
+            if (normalized.image && normalized.image.includes("/men/")) {
+                normalized.gender = "men";
+            } else if (normalized.image && normalized.image.includes("/women/")) {
+                normalized.gender = "women";
+            } else if (normalized.image && normalized.image.includes("/accessories/")) {
+                normalized.gender = "accessories";
+            } else {
+                normalized.gender = "men";
+            }
+        }
+        normalized.category = normalized.category || "tshrits";
+        normalized.id = normalized.id || `${normalized.gender}-${normalized.category}-${index + 1}`;
+        normalized.name = normalized.name || `Premium Gear ${index + 1}`;
+        normalized.price = normalized.price || "1499.00";
+        normalized.description = normalized.description || `Engineered for high performance, the ${normalized.name} utilizes premium material constructs designed to elevate your training. Breathable, durable, and styled for modern warriors.`;
+        
+        let imgs = normalized.images || [];
+        if (!Array.isArray(imgs)) imgs = [];
+        if (imgs.length === 0) {
+            if (normalized.image) {
+                imgs = [normalized.image, normalized.image, normalized.image, normalized.image];
+            }
+        } else {
+            while (imgs.length < 4) {
+                imgs.push(imgs[0] || normalized.image);
+            }
+        }
+        normalized.images = imgs;
+        normalized.image = normalized.image || imgs[0];
+
+        normalized.features = normalized.features || [
+            "High-performance active athletic thread construction",
+            "Moisture-wicking mesh ventilation integration",
+            "Ergonomic flatlock comfort stitching contours",
+            "Reflective Armour47 branding details for safety"
+        ];
+
+        normalized.colors = normalized.colors || [
+            { name: "Carbon Black", hex: "#111111" },
+            { name: "Stealth Grey", hex: "#555555" },
+            { name: "Crimson Red", hex: "#ff2020" },
+            { name: "Arctic White", hex: "#ffffff" }
+        ];
+
+        return normalized;
+    });
+}
 
 function initProductCatalog() {
+    // Normalize raw products list first
+    normalizeProductsList();
+
     GENDERS.forEach(gender => {
         const panel = document.getElementById(`panel-${gender}`);
         if (!panel) return;
 
         let panelHtml = "";
+        
+        // Dynamically get and sort unique category keys for this gender from products
+        const catKeys = [...new Set(PRODUCTS.filter(p => p.gender === gender).map(p => p.category))];
+        catKeys.sort((a, b) => {
+            const indexA = CATEGORY_ORDER.indexOf(a);
+            const indexB = CATEGORY_ORDER.indexOf(b);
+            if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+            if (indexA === -1) return 1;
+            if (indexB === -1) return -1;
+            return indexA - indexB;
+        });
 
-        CATEGORIES_ORDER.forEach(catKey => {
+        catKeys.forEach(catKey => {
             // Filter products matching this gender and category
             const filtered = PRODUCTS.filter(p => p.gender === gender && p.category === catKey);
             if (filtered.length === 0) return;
 
-            const categoryName = CATEGORIES_MAPPING[catKey];
+            const categoryName = CATEGORIES_MAPPING[catKey] || catKey.split(/[-_ ]+/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
             
             let gridCardsHtml = "";
             filtered.forEach(product => {
@@ -282,8 +360,14 @@ function initProductCatalog() {
 
             panelHtml += `
                 <div class="category-block" id="block-${gender}-${catKey}">
-                    <h3 class="category-title">${categoryName}</h3>
-                    <div class="product-grid">
+                    <div class="category-header-row">
+                        <h3 class="category-title">${categoryName}</h3>
+                        <div class="scroll-arrows" id="arrows-${gender}-${catKey}">
+                            <button class="arrow-btn arrow-prev" onclick="scrollGrid('${gender}-${catKey}', -1)" aria-label="Scroll left">&larr;</button>
+                            <button class="arrow-btn arrow-next" onclick="scrollGrid('${gender}-${catKey}', 1)" aria-label="Scroll right">&rarr;</button>
+                        </div>
+                    </div>
+                    <div class="product-grid" id="grid-${gender}-${catKey}">
                         ${gridCardsHtml}
                     </div>
                 </div>
@@ -294,28 +378,74 @@ function initProductCatalog() {
     });
 
     updateCartBadgeCount();
+
+    // Set visibility check for scroll arrows
+    setTimeout(updateArrowVisibility, 100);
+    window.addEventListener("resize", updateArrowVisibility);
+    window.addEventListener("load", updateArrowVisibility);
+}
+
+// Scroll grid left or right
+function scrollGrid(blockId, direction) {
+    const grid = document.getElementById(`grid-${blockId}`);
+    if (!grid) return;
+    const scrollAmount = grid.clientWidth * 0.8;
+    grid.scrollBy({
+        left: direction * scrollAmount,
+        behavior: "smooth"
+    });
+}
+
+// Show/hide arrow buttons based on grid overflow
+function updateArrowVisibility() {
+    const grids = document.querySelectorAll(".product-grid");
+    grids.forEach(grid => {
+        const id = grid.id.replace("grid-", "");
+        const arrows = document.getElementById(`arrows-${id}`);
+        if (arrows) {
+            if (grid.scrollWidth > grid.clientWidth) {
+                arrows.style.display = "flex";
+            } else {
+                arrows.style.display = "none";
+            }
+        }
+    });
 }
 
 // Tab Switching
 function switchGenderTab(gender) {
     const tabMen = document.getElementById("tab-btn-men");
     const tabWomen = document.getElementById("tab-btn-women");
+    const tabAccessories = document.getElementById("tab-btn-accessories");
+    
     const panelMen = document.getElementById("panel-men");
     const panelWomen = document.getElementById("panel-women");
+    const panelAccessories = document.getElementById("panel-accessories");
 
-    if (!tabMen || !tabWomen) return;
+    const tabs = [tabMen, tabWomen, tabAccessories];
+    const panels = [panelMen, panelWomen, panelAccessories];
+    const targetKey = gender.toLowerCase();
 
-    if (gender === "men") {
-        tabMen.classList.add("active");
-        tabWomen.classList.remove("active");
-        panelMen.classList.add("active");
-        panelWomen.classList.remove("active");
-    } else {
-        tabWomen.classList.add("active");
-        tabMen.classList.remove("active");
-        panelWomen.classList.add("active");
-        panelMen.classList.remove("active");
-    }
+    tabs.forEach(tab => {
+        if (!tab) return;
+        if (tab.id === `tab-btn-${targetKey}`) {
+            tab.classList.add("active");
+        } else {
+            tab.classList.remove("active");
+        }
+    });
+
+    panels.forEach(panel => {
+        if (!panel) return;
+        if (panel.id === `panel-${targetKey}`) {
+            panel.classList.add("active");
+        } else {
+            panel.classList.remove("active");
+        }
+    });
+
+    // Recalculate arrows when tab changes
+    setTimeout(updateArrowVisibility, 150);
 }
 
 // Teaser Card Trigger

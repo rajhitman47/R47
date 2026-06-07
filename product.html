@@ -204,12 +204,12 @@
     <!-- ===================================== -->
     <!-- SCRIPTS -->
     <!-- ===================================== -->
-    <script src="assets/js/products_men.js"></script>
-    <script src="assets/js/products_women.js"></script>
+    <script src="assets/js/product_men.js"></script>
+    <script src="assets/js/product_women.js"></script>
+    <script src="assets/js/accessories.js"></script>
     <script>
-        window.PRODUCTS = [...PRODUCTS_MEN, ...PRODUCTS_WOMEN];
-        window.GENDERS = ["men", "women"];
-        window.CATEGORIES = ["tshirts", "pants", "shoes", "caps", "compressions", "shorts", "hoodies"];
+        window.PRODUCTS = [...PRODUCTS_MEN, ...PRODUCTS_WOMEN, ...PRODUCTS_ACCESSORIES];
+        window.GENDERS = ["men", "women", "accessories"];
     </script>
     <script src="assets/js/config.js"></script>
     <script>
@@ -308,6 +308,38 @@
             if (!currentProduct) {
                 renderNotFound();
                 return;
+            }
+
+            // Normalize product details (ensure 4 images, default features and colors if missing)
+            let imgs = currentProduct.images || [];
+            if (!Array.isArray(imgs)) imgs = [];
+            if (imgs.length === 0) {
+                if (currentProduct.image) {
+                    imgs = [currentProduct.image, currentProduct.image, currentProduct.image, currentProduct.image];
+                }
+            } else {
+                while (imgs.length < 4) {
+                    imgs.push(imgs[0] || currentProduct.image);
+                }
+            }
+            currentProduct.images = imgs;
+
+            if (!currentProduct.features || !Array.isArray(currentProduct.features)) {
+                currentProduct.features = [
+                    "High-performance active athletic thread construction",
+                    "Moisture-wicking mesh ventilation integration",
+                    "Ergonomic flatlock comfort stitching contours",
+                    "Reflective Armour47 branding details for safety"
+                ];
+            }
+
+            if (!currentProduct.colors || !Array.isArray(currentProduct.colors)) {
+                currentProduct.colors = [
+                    { name: "Carbon Black", hex: "#111111" },
+                    { name: "Stealth Grey", hex: "#555555" },
+                    { name: "Crimson Red", hex: "#ff2020" },
+                    { name: "Arctic White", hex: "#ffffff" }
+                ];
             }
 
             // Reset image switcher index

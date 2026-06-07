@@ -36,7 +36,7 @@
     <header>
         <div class="logo-area" onclick="window.location.href='#home'">
             <img src="assets/images/Elogo-trans.png" alt="R47 Logo" class="logo-icon">
-            <img src="assets/images/ARMOUR47-trans.png" alt="Armour47" class="logo-text">
+            <img src="assets/images/ARMOUR47-trans.png" alt="Armour47" class="logo-text1">
         </div>
 
         <nav class="desktop-nav">
@@ -180,7 +180,7 @@
     <!-- TEASER CATEGORY CARDS SECTION -->
     <!-- ===================================== -->
     <section class="categories-teaser">
-        <div class="category-card" onclick="setActiveTabAndScroll('men', 'tshirts')">
+        <div class="category-card" onclick="setActiveTabAndScroll('men', 'oversized')">
             <div class="card-image card1"></div>
             <div class="card-content">
                 <h3>OVERSIZED TEES</h3>
@@ -194,21 +194,21 @@
                 <span class="explore-link">EXPLORE &rarr;</span>
             </div>
         </div>
-        <div class="category-card" onclick="setActiveTabAndScroll('men', 'compressions')">
+        <div class="category-card" onclick="setActiveTabAndScroll('men', 'Ctshrits')">
             <div class="card-image card3"></div>
             <div class="card-content">
                 <h3>COMPRESSION WEAR</h3>
                 <span class="explore-link">EXPLORE &rarr;</span>
             </div>
         </div>
-        <div class="category-card" onclick="setActiveTabAndScroll('men', 'caps')">
+        <div class="category-card" onclick="setActiveTabAndScroll('accessories', 'all gears')">
             <div class="card-image card4"></div>
             <div class="card-content">
                 <h3>ACCESSORIES GEAR</h3>
                 <span class="explore-link">EXPLORE &rarr;</span>
             </div>
         </div>
-        <div class="category-card" onclick="setActiveTabAndScroll('women', 'tshirts')">
+        <div class="category-card" onclick="setActiveTabAndScroll('women', 'Ctshrits')">
             <div class="card-image card5"></div>
             <div class="card-content">
                 <h3>LIMITED DROPS</h3>
@@ -241,10 +241,10 @@
 
             <!-- Gender Selector Tabs -->
             <div class="gender-tabs">
-                <button class="gender-tab-btn active" id="tab-btn-men" onclick="switchGenderTab('men')">MEN'S
-                    GEAR</button>
-                <button class="gender-tab-btn" id="tab-btn-women" onclick="switchGenderTab('women')">WOMEN'S
-                    GEAR</button>
+                <button class="gender-tab-btn active" id="tab-btn-men" onclick="switchGenderTab('men')">MEN</button>
+                <button class="gender-tab-btn" id="tab-btn-women" onclick="switchGenderTab('women')">WOMEN</button>
+                <button class="gender-tab-btn" id="tab-btn-accessories"
+                    onclick="switchGenderTab('accessories')">ACCESSORIES</button>
             </div>
         </div>
 
@@ -255,6 +255,11 @@
 
         <!-- Women's Collections Panel -->
         <div class="collections-panel" id="panel-women">
+            <!-- Dynamic grids will be populated here -->
+        </div>
+
+        <!-- Accessories Collections Panel -->
+        <div class="collections-panel" id="panel-accessories">
             <!-- Dynamic grids will be populated here -->
         </div>
     </section>
@@ -309,12 +314,12 @@
     <!-- ===================================== -->
     <!-- SCRIPTS -->
     <!-- ===================================== -->
-    <script src="assets/js/products_men.js"></script>
-    <script src="assets/js/products_women.js"></script>
+    <script src="assets/js/product_men.js"></script>
+    <script src="assets/js/product_women.js"></script>
+    <script src="assets/js/accessories.js"></script>
     <script>
-        window.PRODUCTS = [...PRODUCTS_MEN, ...PRODUCTS_WOMEN];
-        window.GENDERS = ["men", "women"];
-        window.CATEGORIES = ["tshirts", "pants", "shoes", "caps", "compressions", "shorts", "hoodies"];
+        window.PRODUCTS = [...PRODUCTS_MEN, ...PRODUCTS_WOMEN, ...PRODUCTS_ACCESSORIES];
+        window.GENDERS = ["men", "women", "accessories"];
     </script>
     <script src="assets/js/config.js"></script>
     <script src="assets/js/script.js"></script>

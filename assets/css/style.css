@@ -53,7 +53,7 @@ body {
     color: var(--text-pure);
     font-family: var(--font-primary);
     overflow-x: hidden;
-    position:relative;
+    position: relative;
     line-height: 1.6;
 }
 
@@ -71,7 +71,7 @@ a {
     position: fixed;
     inset: 0;
     background: radial-gradient(circle at 80% 30%, rgba(255, 0, 0, 0.15), transparent 50%),
-                radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.08), transparent 45%);
+        radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.08), transparent 45%);
     z-index: -10;
     pointer-events: none;
 }
@@ -121,13 +121,27 @@ a {
 }
 
 @keyframes floatVertical {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-40px) scale(1.08); }
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-40px) scale(1.08);
+    }
 }
 
 @keyframes floatHorizontal {
-    0%, 100% { transform: translateX(0) scale(1); }
-    50% { transform: translateX(35px) scale(0.95); }
+
+    0%,
+    100% {
+        transform: translateX(0) scale(1);
+    }
+
+    50% {
+        transform: translateX(35px) scale(0.95);
+    }
 }
 
 /* ==========================================================================
@@ -159,7 +173,7 @@ header {
 }
 
 .logo-icon {
-    height: 48px;
+    height: 130px;
     object-fit: contain;
     filter: drop-shadow(0 0 8px var(--glow-red));
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -170,7 +184,12 @@ header {
 }
 
 .logo-text {
-    height: 24px;
+    height: 180px;
+    object-fit: contain;
+}
+
+.logo-text1 {
+    height: 45px;
     object-fit: contain;
 }
 
@@ -599,8 +618,7 @@ header {
     height: 100%;
     max-width: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.25))
-            drop-shadow(0 0 70px rgba(255, 0, 0, 0.15));
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.25)) drop-shadow(0 0 70px rgba(255, 0, 0, 0.15));
     opacity: 0;
     transform: scale(0.95) translateY(15px);
     transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
@@ -697,11 +715,25 @@ header {
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.card1 { background-image: url("https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=600"); }
-.card2 { background-image: url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600"); }
-.card3 { background-image: url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600"); }
-.card4 { background-image: url("https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"); }
-.card5 { background-image: url("https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=600"); }
+.card1 {
+    background-image: url("https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=600");
+}
+
+.card2 {
+    background-image: url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600");
+}
+
+.card3 {
+    background-image: url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600");
+}
+
+.card4 {
+    background-image: url("https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600");
+}
+
+.card5 {
+    background-image: url("https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=600");
+}
 
 .card-content {
     position: absolute;
@@ -792,8 +824,13 @@ header {
 }
 
 @keyframes marqueeScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .carousel-card {
@@ -919,6 +956,13 @@ header {
     margin-bottom: 80px;
 }
 
+.category-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
 .category-title {
     font-family: var(--font-brand);
     font-size: 20px;
@@ -927,8 +971,43 @@ header {
     color: var(--text-pure);
     border-left: 3px solid var(--primary-red);
     padding-left: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 0 !important;
     text-transform: uppercase;
+}
+
+.scroll-arrows {
+    display: none;
+    /* Flex is set dynamically by JS when overflowing */
+    gap: 8px;
+}
+
+.arrow-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-light);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-pure);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    outline: none;
+    user-select: none;
+}
+
+.arrow-btn:hover {
+    background: var(--primary-red);
+    border-color: var(--primary-red);
+    color: var(--text-pure);
+    box-shadow: 0 0 12px var(--glow-red);
+    transform: scale(1.05);
+}
+
+.arrow-btn:active {
+    transform: scale(0.95);
 }
 
 .product-grid {
@@ -938,22 +1017,18 @@ header {
     gap: 25px;
     padding: 10px 5px 25px;
     scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-red) rgba(255, 255, 255, 0.05);
+    scrollbar-width: none !important;
+    /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none !important;
+    /* Hide scrollbar for IE/Edge */
 }
 
 .product-grid::-webkit-scrollbar {
-    height: 6px;
-}
-
-.product-grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 3px;
-}
-
-.product-grid::-webkit-scrollbar-thumb {
-    background: var(--primary-red);
-    border-radius: 3px;
+    display: none !important;
+    /* Hide scrollbar for Chrome/Safari/Opera */
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
 }
 
 /* Product Card */
@@ -978,7 +1053,8 @@ header {
 
 .product-img-wrapper {
     width: 100%;
-    padding-top: 110%; /* 1.1 aspect-ratio */
+    padding-top: 110%;
+    /* 1.1 aspect-ratio */
     position: relative;
     overflow: hidden;
     background: #080808;
@@ -1098,7 +1174,7 @@ header {
     position: absolute;
     width: 250px;
     height: 250px;
-    background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 0%, transparent 70%);
     z-index: 1;
 }
 
@@ -1106,14 +1182,17 @@ header {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
     width: 100%;
     z-index: 2;
 }
 
 .main-image-scroller::-webkit-scrollbar {
-    display: none;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
 }
 
 .product-detail-img {
@@ -1122,7 +1201,7 @@ header {
     max-height: 500px;
     object-fit: contain;
     border-radius: 8px;
-    filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
     scroll-snap-align: start;
 }
 
@@ -1194,7 +1273,7 @@ header {
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.3);
     outline: none;
 }
 
@@ -1534,8 +1613,13 @@ header {
 }
 
 @keyframes rotation {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Success Banner inside Modal */
@@ -1838,10 +1922,11 @@ footer {
     .categories-teaser {
         grid-template-columns: repeat(3, 1fr);
     }
-    
+
     .categories-teaser .category-card:nth-child(4),
     .categories-teaser .category-card:nth-child(5) {
-        grid-column: span 1.5; /* Spans nicely */
+        grid-column: span 1.5;
+        /* Spans nicely */
     }
 
     .product-detail-container {
@@ -1865,7 +1950,7 @@ footer {
     header {
         height: 70px;
     }
-    
+
     .logo-icon {
         height: 38px;
     }
@@ -1894,7 +1979,8 @@ footer {
         gap: 12px;
     }
 
-    .btn-primary, .btn-secondary {
+    .btn-primary,
+    .btn-secondary {
         width: 100%;
         text-align: center;
     }
@@ -1978,17 +2064,18 @@ footer {
         gap: 12px;
     }
 
-    .btn-primary, .btn-secondary {
+    .btn-primary,
+    .btn-secondary {
         width: 100%;
         text-align: center;
         padding: 12px;
         font-size: 13px;
     }
-    
+
     .product-grid {
         padding-bottom: 15px;
     }
-    
+
     .product-card {
         flex: 0 0 190px;
     }
@@ -2048,9 +2135,11 @@ footer {
         height: 38px;
         font-size: 16px;
     }
+
     .btn-left {
         left: 10px;
     }
+
     .btn-right {
         right: 10px;
     }
